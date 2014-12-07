@@ -1,0 +1,31 @@
+{
+  "name": "caine",
+  "version": "1.0.0",
+  "description": "The wise old man",
+  "main": "lib/caine.js",
+  "scripts": {
+    "test": "mocha --reporter=spec test/**/*-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:indutny/caine"
+  },
+  "keywords": [
+    "Caine",
+    "github",
+    "bot"
+  ],
+  "author": "Fedor Indutny <fedor@indutny.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/indutny/caine/issues"
+  },
+  "homepage": "https://github.com/indutny/caine",
+  "dependencies": {
+    "github": "^0.2.3",
+    "markdown": "^0.5.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.0.1"
+  }
+}
