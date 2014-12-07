@@ -1,3 +1,6 @@
+var assert = require('assert');
+var marked = require('marked');
+
 var caine = require('../');
 var contributing = caine.contributing;
 
@@ -20,9 +23,57 @@ function fn2text(fn) {
 }
 
 describe('Contributing', function() {
+  describe('.renderMd()', function() {
+    function test(fn) {
+      var text = fn2text(fn);
+      var expected = marked.lexer(text);
+      var actual = marked.lexer(contributing.renderMd(marked.lexer(text)));
+
+      assert.deepEqual(actual, expected);
+    }
+    it('should render markdown ast back to markdown', function() {
+      test(function() {/*
+        # H1
+        ## H2
+        ### H3
+
+        Multi-line paragraph
+        yes.
+
+        Unordered list:
+
+        * 123
+        * 123
+        * Sub list after
+          multiline:
+          * ohai
+          * ok
+        * back
+
+        Ordered list:
+
+        1. 123
+        2. x
+        3. x
+        4. x
+        5. x
+        6. x
+        7. x
+        8. x
+        9. x
+        10. 456
+            multi
+      */});
+    });
+  });
+
   describe('.parse()', function() {
     it('should parse semantic markdown', function() {
       var out = contributing.parse(fn2text(function() {/*
+        ## Irrelevant info
+
+        Yes
+
         ### Caine's requirements
 
         Hello! I am pleased to see your valuable contributing to this project.
@@ -56,6 +107,10 @@ describe('Contributing', function() {
 
         Truly yours,
         Caine.
+
+        ### Some non-caine's stuff
+
+        Yep.
       */}));
     });
   });

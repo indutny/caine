@@ -23,7 +23,7 @@
   "homepage": "https://github.com/indutny/caine",
   "dependencies": {
     "github": "^0.2.3",
-    "markdown": "^0.5.0"
+    "marked": "^0.3.2"
   },
   "devDependencies": {
     "mocha": "^2.0.1"
