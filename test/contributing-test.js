@@ -40,15 +40,17 @@ var questions = fn2text(function() {/*
     module from npm or other source? Please ensure that the test case
     that reproduces this problem is not using any external dependencies.
     If the error is not reproducible with just core modules - it is most
-    likely not a io.js problem.
+    likely not a io.js problem. _Expected: `yes`_
   * Which part of core do you think it might be related to?
     _One of: `tls, crypto, buffer, http, https, assert, util, streams,
     other`_
   * Which versions of io.js do you think are affected by this?
     _One of: `v0.10, v0.12, v1.0.0`_
-  * _PR-only_ Does `make test` pass after applying this Pull Request
+  * _PR-only_ Does `make test` pass after applying this Pull Request.
+    _Expected: `yes`_
   * _PR-only_ Is the commit message properly formatted? (See
     CONTRIBUTING.md for more information)
+    _Expected: `yes`_
 
   Please provide the answers in an ordered list like this:
 
@@ -120,6 +122,43 @@ describe('Contributing', function() {
       assert(typeof out === 'object');
       assert(out.text);
       assert.equal(out.questions.length, 5);
+    });
+  });
+
+  describe('.test()', function() {
+    it('should test answers to issue questions', function() {
+      var q = contributing.parse(questions).questions;
+
+      var res = contributing.test(q, fn2text(function() {/*
+        Irrelevant stuff
+
+        First list
+        1. yes
+        2. tls
+        3. v0.12
+      */}), { type: 'issue' });
+      assert(res.ok);
+
+      // Wrong answers
+      var res = contributing.test(q, fn2text(function() {/*
+        Irrelevant stuff
+
+        First list
+        1. wait, what?
+        2. everything
+        3. php
+      */}), { type: 'issue' });
+      assert(!res.ok);
+
+      assert.equal(res.results[0].reason,
+                   'Expected: `yes`, but got: `wait, what`');
+      assert.equal(res.results[1].reason,
+                   'Expected one of: `tls`, `crypto`, `buffer`, `http`, ' +
+                       '`https`, `assert`, `util`, `streams`, `other`, ' +
+                       'but got: `everything`');
+      assert.equal(res.results[2].reason,
+                   'Expected one of: `v0.10`, `v0.12`, `v1.0.0`, ' +
+                       'but got: `php`');
     });
   });
 });
