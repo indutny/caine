@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+var yargs = require('yargs')
+    .usage('Usage: $0 --config config.json')
+    .alias('c', 'config')
+    .alias('t', 'token-for')
+    .alias('p', 'password')
+    .example('$0 --token-for username --password ...',
+             'request github API token')
+    .example('$0 --config config.json', 'just run caine once')
+    .describe('token-for', 'Just request a token')
+    .describe('config', 'Path to configuration file');
+var argv = yargs.argv;
+
+var caine = require('..');
+
+if (argv['token-for']) {
+  if (!argv['password'])
+    return yargs.showHelp();
+
+  return caine.getToken(argv['token-for'], argv['password'], function(err,
+                                                                      token) {
+    if (err)
+      throw err;
+
+    console.log('Token is: ' + token);
+  });
+}
+
+if (!argv.config)
+  return yargs.showHelp();
+
+var fs = require('fs');
+var config = JSON.parse(fs.readFileSync(argv.config).toString());
+
+var caine = caine.create(config);
+
+caine.init(function(err) {
+  if (err)
+    throw err;
+
+  caine.poll();
+});
