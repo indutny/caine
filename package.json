@@ -1,6 +1,6 @@
 {
   "name": "caine",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The wise old man",
   "main": "lib/caine.js",
   "scripts": {
