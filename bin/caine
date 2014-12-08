@@ -8,7 +8,14 @@ var yargs = require('yargs')
              'request github API token')
     .example('$0 --config config.json', 'just run caine once')
     .describe('token-for', 'Just request a token')
-    .describe('config', 'Path to configuration file');
+    .describe('config', 'Path to configuration file')
+    .describe('poll-delay', 'Delay between polls in seconds')
+    .default('poll-delay', 60)
+    .check(function(argv) {
+      if (argv['poll-delay'] != (argv['poll-delay'] | 0))
+        throw new Error('Non-integer poll-delay');
+    });
+
 var argv = yargs.argv;
 
 var caine = require('..');
@@ -38,8 +45,13 @@ caine.init(function(err) {
   if (err)
     throw err;
 
-  caine.poll(function(err) {
-    if (err)
-      throw err;
-  });
+  function poll() {
+    caine.poll(function(err) {
+      if (err)
+        throw err;
+
+      setTimeout(poll, (argv['poll-delay'] | 0) * 1000);
+    });
+  }
+  poll();
 });
