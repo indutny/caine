@@ -81,6 +81,7 @@ describe('Contributing', function() {
       assert(!/_PR/g.test(out.text.issue));
       assert(/_Issue/g.test(out.text.issue));
       assert(/summoning/g.test(out.text.success));
+      assert(/Sorry/g.test(out.text.error));
       assert.equal(out.questions.length, 5);
       assert.equal(out.responsibilities.crypto[0], 'indutny');
     });

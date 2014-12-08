@@ -38,6 +38,9 @@ so please be very careful with numbers and don't skip the questions!
 
 _In case of success I will say:_ `...summoning the core team devs!`.
 
+_In case of validation problem I will say:_ `Sorry, but something is not right
+here:`.
+
 Truly yours,
 Caine.
 
