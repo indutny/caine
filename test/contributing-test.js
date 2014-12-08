@@ -80,6 +80,7 @@ describe('Contributing', function() {
       assert(/_PR/g.test(out.text.pr));
       assert(!/_PR/g.test(out.text.issue));
       assert(/_Issue/g.test(out.text.issue));
+      assert(/summoning/g.test(out.text.success));
       assert.equal(out.questions.length, 5);
     });
   });
