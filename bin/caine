@@ -6,19 +6,14 @@ var yargs = require('yargs')
     .alias('p', 'password')
     .example('$0 --token-for username --password ...',
              'request github API token')
-    .example('$0 --config config.json', 'just run caine once')
+    .example('$0 --config config.json', 'start caine')
     .describe('token-for', 'Just request a token')
-    .describe('config', 'Path to configuration file')
-    .describe('poll-delay', 'Delay between polls in seconds')
-    .default('poll-delay', 60)
-    .check(function(argv) {
-      if (argv['poll-delay'] != (argv['poll-delay'] | 0))
-        throw new Error('Non-integer poll-delay');
-    });
+    .describe('config', 'Path to configuration file');
 
 var argv = yargs.argv;
 
 var caine = require('../');
+var assert = require('assert');
 var util = require('util');
 
 if (argv['token-for']) {
@@ -39,6 +34,8 @@ if (!argv.config)
 
 var fs = require('fs');
 var config = JSON.parse(fs.readFileSync(argv.config).toString());
+assert.equal(typeof config.pollInterval, 'number',
+             'config.pollInterval is missing or invalid');
 
 var caine = caine.create(config);
 
@@ -51,12 +48,19 @@ caine.init(function(err) {
       if (err)
         throw err;
 
-      setTimeout(poll, (argv['poll-delay'] | 0) * 1000);
+      setTimeout(poll, config.pollInterval * 1000);
 
       updateTimestamp();
     });
   }
   poll();
+});
+
+caine.on('ratelimit', function(meta) {
+  console.log('Github rate limit: %d of %d (until %s)',
+              meta['x-ratelimit-remaining'] | 0,
+              meta['x-ratelimit-limit'] | 0,
+              new Date(meta['x-ratelimit-reset'] * 1000));
 });
 
 function updateTimestamp() {

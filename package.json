@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "The wise old man",
   "main": "lib/caine.js",
+  "bin": "./bin/caine",
   "scripts": {
     "test": "mocha --reporter=spec test/**/*-test.js"
   },
