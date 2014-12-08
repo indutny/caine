@@ -446,7 +446,7 @@ core team members?
   likely not a io.js problem. _Expected: `yes`_
 * Which part of core do you think it might be related to?
   _One of: `tls, crypto, buffer, http, https, assert, util, streams,
-  other`_ (_label_)
+  smalloc, cluster, child_process, dgram, c++, other`_ (_label_)
 * Which versions of io.js do you think are affected by this?
   _One of: `v0.10, v0.12, v1.0.0`_ (_label_)
 * _PR-only_ Does `make test` pass after applying this Pull Request.
@@ -474,7 +474,6 @@ Caine.
 
 ### Responsibilities
 
-* indutny: crypto
-* trevnorris: buffer
-* isaacs: streams
-* bnoordhuis: other
+* indutny: crypto, tls, https, child_process, c++
+* trevnorris: buffer, http, https, smalloc
+* bnoordhuis: http, cluster, child_process, dgram

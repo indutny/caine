@@ -118,7 +118,8 @@ describe('Contributing', function() {
                    'Expected: `yes`, but got: `wait, what`');
       assert.equal(res.results[1].reason,
                    'Expected one of: `tls`, `crypto`, `buffer`, `http`, ' +
-                       '`https`, `assert`, `util`, `streams`, `other`, ' +
+                       '`https`, `assert`, `util`, `streams`, `smalloc`, ' +
+                       '`cluster`, `child_process`, `dgram`, `c++`, `other`, ' +
                        'but got: `everything`');
       assert.equal(res.results[2].reason,
                    'Expected one of: `v0.10`, `v0.12`, `v1.0.0`, ' +
