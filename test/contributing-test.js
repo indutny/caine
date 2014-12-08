@@ -76,6 +76,10 @@ describe('Contributing', function() {
       var out = contributing.parse(questions);
       assert(typeof out === 'object');
       assert(out.text);
+      assert(!/_Issue/g.test(out.text.pr));
+      assert(/_PR/g.test(out.text.pr));
+      assert(!/_PR/g.test(out.text.issue));
+      assert(/_Issue/g.test(out.text.issue));
       assert.equal(out.questions.length, 5);
     });
   });
@@ -93,6 +97,8 @@ describe('Contributing', function() {
         3. v0.12
       */}), { type: 'issue' });
       assert(res.ok);
+      assert.equal(res.results[2].answer, 'v0.12');
+      assert(res.results[2].label);
 
       // Wrong answers
       var res = contributing.test(q, fn2text(function() {/*

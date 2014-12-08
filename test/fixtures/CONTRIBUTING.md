@@ -36,10 +36,17 @@ Please provide the answers in an ordered list like this:
 Note that I am just a bot with a limited human-reply parsing abilities,
 so please be very careful with numbers and don't skip the questions!
 
-The core team members will be summoned here right after your answers!
+_In case of success I will say:_ `...summoning the core team devs!`.
 
 Truly yours,
 Caine.
+
+#### Responsibilities
+
+* indutny: crypto
+* trevnorris: buffer
+* isaacs: streams
+* bnoordhuis: other
 
 ### Some non-caine's stuff
 
