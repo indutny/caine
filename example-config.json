@@ -1,3 +1,10 @@
 {
+  "user": "caineio",
   "token": "..."
+  "repo": "indutny/caine#master",
+  "contributing": "test/fixtures/CONTRIBUTING.md",
+  "labels": {
+    "waiting": "needs info",
+    "success": "caine passed"
+  }
 }

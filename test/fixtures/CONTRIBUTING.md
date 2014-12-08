@@ -4,7 +4,7 @@ Yes
 
 ### Caine's requirements
 
-Hello! I am pleased to see your valuable contributing to this project.
+Hello! I am pleased to see your valuable contribution to this project.
 Would you please mind answering a couple of questions to help me
 classify this submission and/or gather required information for the
 core team members?

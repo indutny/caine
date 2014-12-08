@@ -18,7 +18,8 @@ var yargs = require('yargs')
 
 var argv = yargs.argv;
 
-var caine = require('..');
+var caine = require('../');
+var util = require('util');
 
 if (argv['token-for']) {
   if (!argv['password'])
@@ -51,7 +52,20 @@ caine.init(function(err) {
         throw err;
 
       setTimeout(poll, (argv['poll-delay'] | 0) * 1000);
+
+      updateTimestamp();
     });
   }
   poll();
 });
+
+function updateTimestamp() {
+  var body = JSON.stringify(util._extend(config, {
+    timestamp: caine.timestamp.getTime()
+  }), null, 2);
+
+  fs.writeFile(argv.config, body, function(err) {
+    if (err)
+      throw err;
+  });
+}
