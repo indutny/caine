@@ -113,6 +113,7 @@ describe('Contributing', function() {
         3. php
       */}), { type: 'issue' });
       assert(!res.ok);
+      assert(res.mention);
 
       assert.equal(res.results[0].reason,
                    'Expected: `yes`, but got: `wait, what`');
@@ -124,6 +125,22 @@ describe('Contributing', function() {
       assert.equal(res.results[2].reason,
                    'Expected one of: `v0.10`, `v0.12`, `v1.0.0`, ' +
                        'but got: `php`');
+
+      // Mentioned
+      var res = contributing.test(q, fn2text(function() {/*
+        @indutny Irrelevant stuff
+      */}), { type: 'issue', user: 'caineio' });
+      assert(!res.mention);
+
+      var res = contributing.test(q, fn2text(function() {/*
+        @caineio Irrelevant stuff
+      */}), { type: 'issue', user: 'caineio' });
+      assert(res.mention);
+
+      var res = contributing.test(q, fn2text(function() {/*
+        @caineio_ Irrelevant stuff
+      */}), { type: 'issue', user: 'caineio' });
+      assert(!res.mention);
     });
   });
 });
