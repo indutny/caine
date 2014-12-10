@@ -133,9 +133,17 @@ describe('Contributing', function() {
       assert(!res.mention);
 
       var res = contributing.test(q, fn2text(function() {/*
+        1. not
+        2. answers
+
         @caineio Irrelevant stuff
+
+        1. yes
+        2. tls
+        3. v0.12
       */}), { type: 'issue', user: 'caineio' });
       assert(res.mention);
+      assert(res.ok);
 
       var res = contributing.test(q, fn2text(function() {/*
         @caineio_ Irrelevant stuff
