@@ -92,6 +92,8 @@ a random maintainer will be assigned to the issue.
 * bnoordhuis: http, cluster, child_process, dgram
 ```
 
+![alternative](http://media.tumblr.com/e553dfeabed74344c3b671f287fc2d10/tumblr_inline_mlnuhsDp6m1qz4rgp.gif)
+
 #### LICENSE
 
 This software is licensed under the MIT License.
